@@ -20,7 +20,7 @@ params:
   navTitleText: Nunns Thoughts
   description: Nothing of any particular value
   homeMetaContent: Welcome to my brain dump
-  footer: Made with [Hugo](https://gohugo.io/). Themed by [Cupper](https://github.com/zwbetz-gh/cupper-hugo-theme). Made by Nunns 🤗
+  footer: Made with [Hugo](https://gohugo.io/). Themed by [Cupper](https://github.com/zwbetz-gh/cupper-hugo-theme). Written by Nunns 🤗
   # For more date formats see https://gohugo.io/functions/format/
   dateFormat: Jan 2, 2006
   # codePenUser: someUser
@@ -33,11 +33,9 @@ params:
   # navTitleText: Cupper Theme
   logoAlt: An alternative text description of the logo
   customCss:
-    # - css/custom_01.css
-    # - css/custom_02.css
+    - css/prism.css
   customJs:
-    # - js/custom_01.js
-    # - js/custom_02.js
+    - js/prism.js
 
 menu:
   nav:

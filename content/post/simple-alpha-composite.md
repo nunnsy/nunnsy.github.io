@@ -1,6 +1,6 @@
 ---
 title: "Simple Alpha Composite"
-date: 2022-01-10T00:00:00+00:00
+date: 2022-01-10T23:00:00+10:00
 tags: [programming, python]
 toc: false
 draft: false
