@@ -3,8 +3,8 @@ languageCode: en-us
 defaultContentLanguage: en
 title: Nunns Thoughts
 theme: cupper-hugo-theme
-googleAnalytics: UA-123456789-1
-disqusShortname: yourdiscussshortname
+# googleAnalytics: UA-123456789-1
+# disqusShortname: yourdiscussshortname
 enableGitInfo: true
 
 taxonomies:
@@ -17,12 +17,13 @@ imaging:
   quality: 99
 
 params:
-  description: An accessibility-friendly Hugo theme, ported from the [original Cupper](https://github.com/ThePacielloGroup/cupper) project.
-  homeMetaContent: An accessibility-friendly Hugo theme, ported from the original Cupper project.
-  footer: Made with [Hugo](https://gohugo.io/). Themed by [Cupper](https://github.com/zwbetz-gh/cupper-hugo-theme). Deployed to [Netlify](https://www.netlify.com/).
+  navTitleText: Nunns Thoughts
+  description: Nothing of any particular value
+  homeMetaContent: Welcome to my brain dump
+  footer: Made with [Hugo](https://gohugo.io/). Themed by [Cupper](https://github.com/zwbetz-gh/cupper-hugo-theme). Made by Nunns 🤗
   # For more date formats see https://gohugo.io/functions/format/
   dateFormat: Jan 2, 2006
-  codePenUser: someUser
+  # codePenUser: someUser
   katex: true
   hideHeaderLinks: false
   search: true
@@ -32,11 +33,11 @@ params:
   # navTitleText: Cupper Theme
   logoAlt: An alternative text description of the logo
   customCss:
-    - css/custom_01.css
-    - css/custom_02.css
+    # - css/custom_01.css
+    # - css/custom_02.css
   customJs:
-    - js/custom_01.js
-    - js/custom_02.js
+    # - js/custom_01.js
+    # - js/custom_02.js
 
 menu:
   nav:
@@ -49,12 +50,12 @@ menu:
     - name: Tags
       url: /tags/
       weight: 3
-    - name: About
-      url: /about/
-      weight: 4
-    - name: RSS
-      url: /index.xml
-      weight: 5
+    # - name: About
+    #   url: /about/
+    #   weight: 4
+    # - name: RSS
+    #   url: /index.xml
+    #   weight: 5
 
 markup:
   defaultMarkdownHandler: goldmark
