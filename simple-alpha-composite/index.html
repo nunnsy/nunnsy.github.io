@@ -4,8 +4,11 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=generator content="Hugo 0.91.2">
-<link rel=canonical href=https://nunnsy.github.io/>
-<meta name=description content="Welcome to my brain dump">
+<link rel=canonical href=https://nunnsy.github.io/simple-alpha-composite/>
+<meta name=description content="I recently had to do some transparent image layering in batches and wanted complete control over the outcome using code. Naturally, I turned to Python due to my familiarity. 🐍🐍🐍
+Unfortunately, Pillow didn’t seem to work well for images with an alpha channel, particularly when resizing and transposing.
+Instead, I ended up using scikit-image to load image data into NumPy arrays and manipulate it from there.
+This short snippet allowed me to achieve transparent image layering.">
 <link rel=apple-touch-icon sizes=180x180 href=https://nunnsy.github.io/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://nunnsy.github.io/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=https://nunnsy.github.io/favicon-16x16.png>
@@ -17,7 +20,7 @@
 <style id=darkTheme>.intro-and-nav,.main-and-footer{filter:invert(100%)}*{background-color:inherit}img:not([src*=".svg"]),.colors,iframe,.demo-container{filter:invert(100%)}</style>
 <link rel=stylesheet href=/css/prism.css media=none onload="this.media='all'">
 <link rel=stylesheet type=text/css href=/css/styles.css>
-<title>Nunns Thoughts</title>
+<title>Simple Alpha Composite | Nunns Thoughts</title>
 </head>
 <body>
 <a href=#main>skip to content</a>
@@ -42,12 +45,12 @@ Menu
 </button>
 <ul id=patterns-list>
 <li class=pattern>
-<a href=/ aria-current=page><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
+<a href=/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
 <span class=text>Home</span>
 </a>
 </li>
 <li class=pattern>
-<a href=/post/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
+<a href=/post/ aria-current=page><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
 <span class=text>Blog</span>
 </a>
 </li>
@@ -63,9 +66,65 @@ Menu
 <div class=main-and-footer>
 <div>
 <main id=main>
-<h1>Home</h1>
-<p><a href=/>www.nunnsthoughts.gov.www\nunnsthoughts</a> - check it out</p>
+<h1><svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false"><use xlink:href="#bookmark"/></svg>
+Simple Alpha Composite
+</h1>
+<div class=date>
+<strong>Publish date: </strong>Jan 10, 2022
+<br>
+<strong>Last updated: </strong>Jan 11, 2022
+</div>
+<div class=tags>
+<strong>Tags: </strong>
+<ul aria-label=tags>
+<li><svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false"><use xlink:href="#tag"/></svg>
+<a href=/tags/programming/>programming</a>
+</li>
+<li><svg class="tag-icon" aria-hidden="true" viewBox="0 0 177.16535 177.16535" focusable="false"><use xlink:href="#tag"/></svg>
+<a href=/tags/python/>python</a>
+</li>
+</ul>
+</div>
+<p>I recently had to do some transparent image layering in batches and wanted complete control over the outcome using code. Naturally, I turned to Python due to my familiarity. 🐍🐍🐍</p>
+<p>Unfortunately, <a href=https://pillow.readthedocs.io/en/stable/>Pillow</a> didn&rsquo;t seem to work well for images with an alpha channel, particularly when resizing and transposing.</p>
+<p>Instead, I ended up using <a href=https://scikit-image.org/>scikit-image</a> to load image data into <a href=https://numpy.org/>NumPy</a> arrays and manipulate it from there.</p>
+<p>This short snippet allowed me to achieve transparent image layering.</p>
+<pre><code class=language-python>def alpha_composite(im1, im2):
+    h, w = im1.shape[:2]
+    final = np.array([[[0.0] * 4] * w] * h)
+    for x in range(w):
+        for y in range(h):
+            p1 = im1[x, y]
+            p2 = im2[x, y]
+            
+            rgb1 = p1[0:3]
+            rgb2 = p2[0:3]
+            a1 = p1[3]
+            a2 = p2[3]
+            
+            blend = a1 * (1 - a2)
+            af = a2 + blend
+            
+            c2 = 0.0 if af == 0 else a2 / af
+            c1 = 1 - c2
+            
+            final[x, y] = np.append(rgb1 * c1 + rgb2 * c2, af)
+    
+    final = np.clip(final, 0.0, 1.0)
+    
+    return final
+</code></pre>
+<p>I&rsquo;m sure there&rsquo;s many efficiency improvements to be made and I cannot guarentee it&rsquo;s bug-free, especially on some edge case I didn&rsquo;t encounter.</p>
+<h6 id=todo>Todo</h6>
+<ul>
+<li>Test non-square dimensions</li>
+<li>Efficiency improvement</li>
+<li>Add typing</li>
+<li>Add comment explanations to operations</li>
+</ul>
 </main>
+<div id=disqus-container>
+</div>
 <footer role=contentinfo>
 <div>
 <label for=themer>
